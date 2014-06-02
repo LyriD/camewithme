@@ -1,0 +1,3 @@
+<% publish_to "/approved_for_room/#{@chat.title}" do %>
+    $('.site-wrapper').html('<%= j render 'room', locals: {send: true} %>');
+<% end %>

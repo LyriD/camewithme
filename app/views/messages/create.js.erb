@@ -1,0 +1,11 @@
+<% publish_to "/messages/new/#{@chat.title}" do %>
+$('.content').append('<%= j render 'message'%>');
+$("html, body").animate({ scrollTop: $(document).height() }, "slow");
+
+    $.ionSound.play(sound);
+
+<% end %>
+$('#new_message')[0].reset();
+
+
+

@@ -1,0 +1,6 @@
+<div class="message">
+  <div class="name"><%= (@message.user.username.blank?)? @chat.whitelists.find_by_user_id(@message.user.id).salt : @message.user.username %></div>
+  <div class="text">
+    <%= @message.body %>
+  </div>
+</div>

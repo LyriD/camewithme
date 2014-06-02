@@ -1,0 +1,10 @@
+development:
+  server: "http://camewith.me:3001/faye"
+  secret_token: "secret"
+test:
+  server: "http://localhost:9292/faye"
+  secret_token: "secret"
+production:
+  server: "http://camewith.me:3001/faye"
+  secret_token: "268239a6e178d53bd6d02b323ac73489fe1115c4e56fb2088701194a989707ab"
+  signature_expiration: 3600 # one hour

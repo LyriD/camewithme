@@ -1,0 +1,51 @@
+  <!--<form id="new_message_form">-->
+  <!--<input type="text" id="message" name="message">-->
+  <!--<input type="submit" value="Send">-->
+  <!--</form>-->
+
+  <% user_id = (@send)? params[:user_id] : session[:user_id] %>
+
+
+  <div class="content">
+    <div class="menu">
+      <div class="link" style="font-size: 16px; font-weight: 100;"><a href="http://camewith.me/<%= @chat.title %>">camewith.me/<%= @chat.title %></a></div>
+      <% if @chat.owner_id == user_id %>
+          <%= link_to raw('<span class="glyphicon glyphicon-user"></span>участники'), admin_room_path, class: "btn btn-success"  %>
+
+      <% else %>
+
+      <% end %>
+    </div>
+    <% @chat.messages.each do |message| %>
+        <div class="message" style="bottom: 0; ">
+          <div class="name"><%= (message.user.username.blank?)? @chat.whitelists.find_by_user_id(message.user.id).salt : message.user.username %></div>
+          <div class="text">
+            <%= message.body %>
+          </div>
+        </div>
+    <% end %>
+
+    <%= form_for Message.new, remote: true, html: {:style => "position: fixed; bottom: 0; width: 100%; left: 0; background: #222; padding: 17px 20px;"} do |f| %>
+        <%= hidden_field_tag :some_data, @chat.title %>
+        <%= f.text_field :body, style: 'width: 100%;  padding: 7px; color: #333' %>
+    <% end %>
+    <%= subscribe_to "/messages/new/#{@chat.title}" %>
+    <%= subscribe_to "/approved_for_room/#{@chat.title}/#{user_id}" %>
+    <%= subscribe_to "/add_user/#{@chat.title}/#{@chat.owner_id}" %>
+    <%# "/add_user/#{@chat.title}/#{@chat.owner_id}" %>
+
+    <%# subscribe_to "/user_approve" %>
+  </div>
+
+
+  <style>
+      div.content div.message:nth-child(2n+2) {
+          background-color: rgba(95, 95, 95, 0.36);
+      }
+  </style>
+
+
+
+
+
+

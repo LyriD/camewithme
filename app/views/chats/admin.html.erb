@@ -1,0 +1,62 @@
+
+<%= subscribe_to "/add_user/#{@chat.title}/#{@chat.owner_id}" %>
+
+
+<div class="admin">
+
+  <%= link_to raw('<span class="glyphicon glyphicon-user"></span> перейти в комнату'), "/#{@chat.title}", class: "btn btn-success" %><div class="link" style="font-size: 20px; font-weight: 100;  margin-left: 20px;"><a href="http://camewith.me/<%= @chat.title %>">camewith.me/<%= @chat.title %></a></div>
+
+
+  <%= form_tag '/change_name', method: :post do %>
+      <div class="col-xs-6" style="padding-left: 0px;">
+        <div class="input-group">
+          <%= text_field_tag :username, session[:username], placeholder: 'ник в комнате', class: 'form-control' %>
+                    <span class="input-group-btn">
+                            <%= submit_tag 'ник', class: 'btn btn-default' %>
+
+                    </span>
+        </div>
+      </div>
+<% end %>
+
+<%= form_tag '/room_admin', method: :post, :id => 'destroy_form' do %>
+    <h2>В комнате</h2>
+
+    <% @chat.users.each do |user| %>
+        <% whitelist = @chat.whitelists.find_by_user_id(user.id) %>
+        <% if whitelist.approve and user.id!=@chat.user.id %>
+            <div class="user">
+              <%= check_box_tag "[to_delete][#{user.id}]" %>
+              <label><%= whitelist.salt %></label>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%= hidden_field_tag 'some_data', @chat.title %>
+
+    <%= submit_tag 'Удалить', class: 'btn btn-sm btn-danger' %>
+    <!--<input type="submit" name="ban" value="Забанить" class="btn btn-sm btn-warning">-->
+    <!--<input type="submit" name="kill" value="Удалить" class="btn btn-sm btn-danger">-->
+
+  <% end %>
+  <%= form_tag '/room_admin', method: :post, :id => 'accept_form' do %>
+
+    <h2>Ожидают</h2>
+
+    <% @chat.users.each do |user| %>
+        <% whitelist = @chat.whitelists.find_by_user_id(user.id) %>
+        <% unless whitelist.approve %>
+            <div class="user">
+              <%= check_box_tag "[to_accept][#{user.id}]" %>
+              <label><%= whitelist.salt %></label>
+            </div>
+        <% end %>
+    <% end %>
+
+    <%= hidden_field_tag 'some_data', @chat.title %>
+        <%= submit_tag 'Пригласить', class: 'btn btn-sm btn-success' %>
+
+
+  <% end %>
+
+</div>

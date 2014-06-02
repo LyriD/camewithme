@@ -1,0 +1,33 @@
+<div class="site-wrapper empty">
+  <div class="site-wrapper-inner">
+    <div class="cover-container">
+
+      <div class="masthead clearfix">
+        <div class="inner">
+          <h3 class="masthead-brand">cAmewith.me</h3>
+          <ul class="nav masthead-nav">
+            <li class="active"><a href="#">Глагне</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="inner cover">
+        <h1 class="cover-heading" style="margin-bottom: 50px; font-size: 4em; color: #5cb85c"><%= @salt %></h1>
+        <p class="lead">
+          Скопируй этот код и отдай создателю комнаты
+        </p>
+      </div>
+
+      <div class="mastfoot">
+        <div class="inner">
+          <!--<p>Cover template for <a href="http://getbootstrap.com">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>-->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= subscribe_to "/approved_for_room/#{@chat.title}/#{session[:user_id]}" %>
+<%= subscribe_to "/add_user" %>
