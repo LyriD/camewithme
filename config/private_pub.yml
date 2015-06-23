@@ -1,5 +1,5 @@
 development:
-  server: "http://camewith.me:3001/faye"
+  server: "http://0.0.0.0:3002/faye"
   secret_token: "secret"
 test:
   server: "http://localhost:9292/faye"
